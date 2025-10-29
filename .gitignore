@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Postgres volume
+.data
+
+# Virtual environment
+.venv/
+venv/
+
+# IDE
+.vscode/
