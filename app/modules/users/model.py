@@ -13,6 +13,6 @@ class User(SQLModel, table=True):
    )
    name: str = Field()
    email: str = Field(sa_column_kwargs={"unique": True, "index": True})
-   password: str = Field(index=True)
+   password: str
    active: bool = Field(default=True, sa_column_kwargs={"server_default": "true"})
    role: str = Field(default="user")
