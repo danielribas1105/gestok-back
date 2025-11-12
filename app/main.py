@@ -32,6 +32,3 @@ app.include_router(api_router)
 def home():
    return {"message": "API FastAPI - Gestok - rodando com sucesso!"}
 
-@app.get("/soma")
-def soma(a: int, b: int):
-   return {"resultado": a + b}
