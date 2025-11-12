@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.route import api_router
 from app.db.database import init_db
 
@@ -15,6 +16,15 @@ async def lifespan(app: FastAPI):
    print("🛑 Encerrando aplicação...")
 
 app = FastAPI(lifespan=lifespan)
+
+# 🔒 Configuração do CORS
+app.add_middleware(
+   CORSMiddleware,
+   allow_origins=["http://localhost:3000"],  # URL do seu frontend Next.js
+   allow_credentials=True,
+   allow_methods=["*"],  # Permite todos os métodos (GET, POST, etc.)
+   allow_headers=["*"],  # Permite todos os headers
+)
 
 app.include_router(api_router)
 
