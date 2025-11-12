@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Query
 from app.db.database import get_db
-from modules.users.schema import UsersSchema, UserRead
-from modules.users.service import ( get_all_users, get_users_paginated )
+from app.modules.users.schema import UsersSchema, UserRead
+from app.modules.users.service import ( get_users_paginated )
 
 router = APIRouter(prefix="/user")
 

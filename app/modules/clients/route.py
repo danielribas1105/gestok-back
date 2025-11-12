@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from app.db.database import get_db
-from modules.clients.schema import ClientRead
-from modules.clients.service import get_all_clients
+from app.modules.clients.schema import ClientRead
+from app.modules.clients.service import get_all_clients
 
 router = APIRouter(prefix="/client")
 
