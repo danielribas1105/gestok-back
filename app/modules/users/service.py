@@ -1,5 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlmodel import asc, func, or_
 from app.modules.users.schema import User
 
 async def get_user_by_username(db: AsyncSession, username: str):
@@ -8,6 +9,7 @@ async def get_user_by_username(db: AsyncSession, username: str):
 
 
 async def get_users_paginated(
+   db: AsyncSession,
    page: int = 1,
    page_size: int = 20,
    search: str | None = None

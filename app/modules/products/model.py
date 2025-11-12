@@ -5,7 +5,7 @@ from sqlmodel import Field, SQLModel
 
 
 class Product(SQLModel, table=True):
-   __table__= "products"
+   __tablename__= "products"
    id: uuid.UUID = Field(
       default_factory=uuid.uuid4,
       primary_key=True,

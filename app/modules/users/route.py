@@ -1,13 +1,8 @@
-from fastapi import APIRouter, Depends, Query
-from app.db.database import get_db
-from app.modules.users.schema import UsersSchema, UserRead
+from fastapi import APIRouter, Query
+from app.modules.users.schema import UsersSchema
 from app.modules.users.service import ( get_users_paginated )
 
-router = APIRouter(prefix="/user")
-
-""" @router.get("/", response_model=list[UserRead])
-async def list_users(db=Depends(get_db)):
-    return await get_all_users(db) """
+router = APIRouter(prefix="/user", tags=["Users"])
 
 @router.get("/", response_model=UsersSchema)
 async def get_users(
