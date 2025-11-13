@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.session import get_db
+from app.modules.auth.service import get_password_hash
 from app.modules.users.model import User
 from app.modules.users.schema import UserCreate, UsersSchema, UserRead
 from app.modules.users.service import get_users_paginated
@@ -25,10 +26,12 @@ async def create_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
     if existing.scalars().first():
         raise HTTPException(status_code=400, detail="E-mail já cadastrado")
 
+    hashed_password = get_password_hash("12345678")
+    print(get_password_hash("12345678"))
     new_user = User(
         name=user.name,
         email=user.email,
-        password=user.password,  # ⚠️ lembre-se: deve ser hash em produção
+        password=hashed_password,  # ⚠️ lembre-se: deve ser hash em produção
         role=user.role or "user",
         active=True,
     )

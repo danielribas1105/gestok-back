@@ -1,7 +1,12 @@
+import uuid
+from fastapi_async_sqlalchemy import db
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlmodel import func, or_
 from app.modules.users.model import User
+
+async def get_user_by_id(id: uuid.UUID | str | None):
+   return await db.session.get(User, id)
 
 async def get_users_paginated(
    db: AsyncSession,
@@ -34,3 +39,27 @@ async def get_users_paginated(
       "page_size": page_size,
       "total_pages": (total + page_size - 1) // page_size if total > 0 else 0,
    }
+
+""" async def get_user_by_email(email) -> User | None:
+   print("get_user_by_email")
+   print(email)
+   print("Sessão ativa?", db.session)
+   result = (await db.session.execute(select(User).where(User.email == email))).first()
+   print("result")
+   print(result)
+
+   return result[0] if result is not None else None """
+
+async def get_user_by_email(email) -> User | None:
+   print(f"🔍 Buscando usuário com email={email}")
+   session = db.session
+   print(f"Sessão ativa: {session}")
+
+   stmt = select(User).where(User.email == email)
+   print(f"SQL gerado: {stmt}")
+
+   result = await session.execute(stmt)
+   user = result.scalars().first()
+
+   print(f"Resultado da query: {user}")
+   return user

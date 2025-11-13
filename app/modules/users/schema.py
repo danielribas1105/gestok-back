@@ -15,7 +15,7 @@ class UserRead(UserBase):
    id: uuid.UUID
 
    class Config:
-      orm_mode = True
+      from_attributes = True
 
 class UsersSchema(BaseModel):
    users: list[UserRead]

@@ -10,6 +10,7 @@ AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=F
 Base = declarative_base()
 
 async def init_db():
+   print(f"🔗 Conectado a: {engine.url}")
    from app.modules.users.model import User
 
    async with engine.begin() as conn:
