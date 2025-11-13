@@ -7,17 +7,13 @@ from app.modules.auth.schema import ( RefreshTokenBody, Token, LoginData )
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
-""" @router.post("/login", response_model=Token)
-async def login(data: LoginData):
-   user = authenticate_user(data.username, data.password)
-   if not user:
-      raise HTTPException(status_code=401, detail="Invalid credentials")
-   return login_user(user) """
-
 @router.post("/token")
 async def login_for_access_token(
    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ) -> Token:
+   """
+   Realiza o login na aplicação e gera o token
+   """
    print("trying to login")
    user = await authenticate_user(form_data.username, form_data.password)
    if not user:

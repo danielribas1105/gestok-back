@@ -17,6 +17,9 @@ async def get_users(
     search: str | None = None,
     db: AsyncSession = Depends(get_db)
 ):
+    """
+    Recupera todos os usuários da aplicação
+    """
     return await get_users_paginated(db=db, page=page, page_size=page_size, search=search)
 
 @router.post("/", response_model=UserRead, status_code=status.HTTP_201_CREATED)
@@ -26,12 +29,11 @@ async def create_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
     if existing.scalars().first():
         raise HTTPException(status_code=400, detail="E-mail já cadastrado")
 
-    hashed_password = get_password_hash("12345678")
-    print(get_password_hash("12345678"))
+    hashed_password = get_password_hash(user.password)
     new_user = User(
         name=user.name,
         email=user.email,
-        password=hashed_password,  # ⚠️ lembre-se: deve ser hash em produção
+        password=hashed_password,
         role=user.role or "user",
         active=True,
     )
