@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 
 router = APIRouter()
 
-@router.get("/status")
+@router.get("/status", tags=["Status"])
 async def get_status():
    try:
       async with engine.begin() as conn:  # type: AsyncConnection
