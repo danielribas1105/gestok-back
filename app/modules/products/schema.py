@@ -6,6 +6,7 @@ class ProductBase(BaseModel):
    description: str
    unit: str
    value: float
+   active: bool
 
 class ProductCreate(ProductBase):
    pass
