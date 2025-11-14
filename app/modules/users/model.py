@@ -1,7 +1,9 @@
+from datetime import datetime
+from typing import List
 import uuid
 
 from sqlalchemy import text
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, Relationship, SQLModel
 
 
 class User(SQLModel, table=True):
@@ -16,3 +18,8 @@ class User(SQLModel, table=True):
    password: str
    active: bool = Field(default=True, sa_column_kwargs={"server_default": "true"})
    role: str = Field(default="user")
+   created_at: datetime = Field(default_factory=datetime.utcnow)
+
+   # Relationship
+   orders: List["Order"] = Relationship(back_populates="user")
+   

@@ -1,7 +1,9 @@
+from datetime import datetime
+from typing import List
 import uuid
 
 from sqlalchemy import text
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, Relationship, SQLModel
 
 
 class Client(SQLModel, table=True):
@@ -14,3 +16,7 @@ class Client(SQLModel, table=True):
    cod_client: str = Field(sa_column_kwargs={"unique": True, "index": True})
    client: str = Field()
    active: bool = Field(default=True, sa_column_kwargs={"server_default": "true"})
+   created_at: datetime = Field(default_factory=datetime.utcnow)
+
+   # Relationship
+   orders: List["Order"] = Relationship(back_populates="user")
