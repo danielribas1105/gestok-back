@@ -19,4 +19,4 @@ class Client(SQLModel, table=True):
    created_at: datetime = Field(default_factory=datetime.utcnow)
 
    # Relationship
-   orders: List["Order"] = Relationship(back_populates="user")
+   orders: List["Order"] = Relationship(back_populates="client")
