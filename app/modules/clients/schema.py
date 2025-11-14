@@ -4,7 +4,7 @@ from pydantic import BaseModel
 class ClientBase(BaseModel):
    cod_client: str
    client: str
-   trade_name: str
+   active: bool
 
 class ClientCreate(ClientBase):
    pass

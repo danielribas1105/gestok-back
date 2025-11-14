@@ -16,7 +16,6 @@ async def get_clients_paginated(
       search_filter = or_(
          Client.cod_client.ilike(f"%{search}%"),  # type: ignore
          Client.client.ilike(f"%{search}%"),  # type: ignore
-         Client.trade_name.ilike(f"%{search}%")  # type: ignore
       )
       query = query.where(search_filter)
       count_query = count_query.where(search_filter)

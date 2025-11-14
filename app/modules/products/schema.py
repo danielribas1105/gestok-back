@@ -2,9 +2,10 @@ import uuid
 from pydantic import BaseModel
 
 class ProductBase(BaseModel):
-   cod_client: str
-   client: str
-   trade_name: str
+   cod_product: str
+   description: str
+   unit: str
+   value: float
 
 class ProductCreate(ProductBase):
    pass
